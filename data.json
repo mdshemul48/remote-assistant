@@ -1,0 +1,32 @@
+{
+    "daily_report": {
+        "21/03/2021": {
+            "uploaded": 500,
+            "deleted": 12
+        },
+        "22/03/2021": {
+            "uploaded": 42,
+            "deleted": 2
+        },
+        "23/03/2021": {
+            "uploaded": 35,
+            "deleted": 0
+        },
+        "24/03/2021": {
+            "uploaded": 74,
+            "deleted": 0
+        },
+        "25/03/2021": {
+            "uploaded": 64,
+            "deleted": 0
+        },
+        "26/03/2021": {
+            "uploaded": 36,
+            "deleted": 0
+        },
+        "27/03/2021": {
+            "uploaded": 6,
+            "deleted": 0
+        }
+    }
+}
