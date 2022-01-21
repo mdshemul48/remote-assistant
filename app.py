@@ -3,7 +3,6 @@ from flask import request
 from flask_cors import CORS
 from guessit import guessit
 from movie_poster import Imdb_search
-import math
 
 app = Flask(__name__, static_url_path="/static")
 
