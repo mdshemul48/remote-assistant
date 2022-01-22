@@ -107,5 +107,5 @@ def imdb_search():
         return poster_and_genres
 
 
-# app.run(host="0.0.0.0", port=5555, debug=True)
+app.run(host="0.0.0.0", port=5555, debug=True)
 app.run()

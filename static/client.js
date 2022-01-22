@@ -1,6 +1,7 @@
 'use strict';
 
 const backendURL = 'http://103.126.149.186:5555';
+const remoteHost = 'http://103.126.149.186:5000';
 
 function loadScript(url) {
   var head = document.head;
@@ -9,21 +10,6 @@ function loadScript(url) {
   script.src = url;
   head.appendChild(script);
 }
-//  this will open the link in existing tab for a post
-document.addEventListener('keypress', (event) => {
-  const editUrl = document.getElementsByClassName('post-edit-link');
-  const postEditUrl = editUrl[0]?.getAttribute('href');
-
-  if (postEditUrl && event.shiftKey && event.key == 'E') {
-    location.replace(postEditUrl);
-  }
-  //  if this true then it will delete the movie
-  const deleteItemUrl = document.querySelector('submitdelete deletion');
-  const deleteItemLink = deleteItemUrl?.getAttribute('href');
-  if (deleteItemLink && event.shiftKey && event.key == 'D') {
-    location.replace(deleteItemLink);
-  }
-});
 
 loadScript(`${backendURL}/static/addEditBtn.js`);
 
@@ -113,11 +99,11 @@ const movieCode = createButton('⏩Add Movie Code!', 'movieClass');
 const tvSeriesCode = createButton('📋TV Series Code!', 'tvSeriesClass');
 const gamePub = createButton('🎮Add File Code!', 'fileCode');
 const tagButton = createButton('🔖Add Tag (keywords)!', 'tagButton');
-const openFolder = createButton('📁Open Folder!', 'openFolder');
 const imdb_tmdb = createButton(
   '🔍Search for Poster & genre!',
   'searchtimdb_tmdb'
 );
+
 // all input folder
 const pastLocation = document.querySelector('.wp-editor-area');
 const tagInput = document.querySelector('#new-tag-post_tag');
@@ -160,20 +146,6 @@ const copyToClipboard = (str) => {
   document.body.removeChild(el);
 };
 
-openFolder.addEventListener('click', () => {
-  if (user_name === 'MD Shimul') {
-    let str = reverse(document.querySelectorAll('textarea')[4].value).replace(
-      '/',
-      '$($($($'
-    );
-    str = reverse(str).split('$($($($', 1) + '-op';
-    copyToClipboard(str);
-    createMessageBar('📂Opening The File Location!');
-  } else {
-    createMessageBar("This isn't made for you bruh! ¯\\_(ツ)_/¯");
-  }
-});
-
 imdb_tmdb.addEventListener('click', function () {
   const http = new XMLHttpRequest();
   const title = document.querySelector('#title').value;
@@ -215,4 +187,42 @@ imdb_tmdb.addEventListener('click', function () {
         .click();
     }
   };
+});
+
+// new update
+const seriesCompleteTable = createButton('💀Add Series', 'completeSeries');
+const gameCompleteTable = createButton('☠️Add Game', 'CompleteGame');
+
+seriesCompleteTable.addEventListener('click', async () => {
+  const inputLink = prompt('Enter Series link: ');
+  if (inputLink.length == 0) {
+    return;
+  }
+  createMessageBar(`wait! let me see.`);
+
+  const response = await fetch(`${remoteHost}/series?reqLink=${inputLink}`);
+  if (response.status !== 200) {
+    createMessageBar(`something went wrong. try again.`);
+    return;
+  }
+  const jsonData = await response.json();
+  pastLocation.value = jsonData.code;
+  createMessageBar(`Done! কী? কেমন দিলাম? 😏`);
+});
+
+gameCompleteTable.addEventListener('click', async () => {
+  const inputLink = prompt('Enter Game link: ');
+  if (inputLink.length == 0) {
+    return;
+  }
+  createMessageBar(`wait! let me see.`);
+
+  const response = await fetch(`${remoteHost}/game?reqLink=${inputLink}`);
+  if (response.status !== 200) {
+    createMessageBar(`something went wrong. try again.`);
+    return;
+  }
+  const jsonData = await response.json();
+  pastLocation.value = jsonData.code;
+  createMessageBar(`Done! কী? কেমন দিলাম? 😏`);
 });
