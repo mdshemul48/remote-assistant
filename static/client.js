@@ -1,7 +1,7 @@
 'use strict';
 
-const backendURL = 'http://103.126.149.186:5555';
-const remoteHost = 'http://103.126.149.186:5000';
+const backendURL = 'http://_______________:5555';
+const remoteHost = 'http://_______________:5000';
 
 function loadScript(url) {
   var head = document.head;
