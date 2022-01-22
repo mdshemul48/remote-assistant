@@ -199,15 +199,18 @@ seriesCompleteTable.addEventListener('click', async () => {
     return;
   }
   createMessageBar(`wait! let me see.`);
-
-  const response = await fetch(`${remoteHost}/series?reqLink=${inputLink}`);
-  if (response.status !== 200) {
+  try {
+    const response = await fetch(`${remoteHost}/series?reqLink=${inputLink}`);
+    if (response.status !== 200) {
+      createMessageBar(`something went wrong. try again.`);
+      return;
+    }
+    const jsonData = await response.json();
+    pastLocation.value = jsonData.code;
+    createMessageBar(`Done! কী? কেমন দিলাম? 😏`);
+  } catch {
     createMessageBar(`something went wrong. try again.`);
-    return;
   }
-  const jsonData = await response.json();
-  pastLocation.value = jsonData.code;
-  createMessageBar(`Done! কী? কেমন দিলাম? 😏`);
 });
 
 gameCompleteTable.addEventListener('click', async () => {
@@ -216,13 +219,16 @@ gameCompleteTable.addEventListener('click', async () => {
     return;
   }
   createMessageBar(`wait! let me see.`);
-
-  const response = await fetch(`${remoteHost}/game?reqLink=${inputLink}`);
-  if (response.status !== 200) {
+  try {
+    const response = await fetch(`${remoteHost}/game?reqLink=${inputLink}`);
+    if (response.status !== 200) {
+      createMessageBar(`something went wrong. try again.`);
+      return;
+    }
+    const jsonData = await response.json();
+    pastLocation.value = jsonData.code;
+    createMessageBar(`Done! কী? কেমন দিলাম? 😏`);
+  } catch {
     createMessageBar(`something went wrong. try again.`);
-    return;
   }
-  const jsonData = await response.json();
-  pastLocation.value = jsonData.code;
-  createMessageBar(`Done! কী? কেমন দিলাম? 😏`);
 });
